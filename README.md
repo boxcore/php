@@ -3,11 +3,11 @@ PHP note
 boxcore的开源笔记，记录下php学习的点点滴滴。
 
 
-
-	<?php
-	echo "Hello World!";
-	?>
-	
+```php
+<?php
+echo "Hello World!";
+?>
+```
 
 #PHP基础
 ##[PHP基本](php-basic.markdown "php基本知识")
