@@ -185,19 +185,75 @@ EOT;
 
 注意：$this 是一个特殊的变量，它不能被赋值。 
 
+> 传值赋值: $a = $b;  
+> 引用赋值: $a = &$b;
+
+
+
 ###预定义变量
+
 
 ###变量范围 
 
-###可变变量 
+1. 局部变量:局部变量是声明在某一函数体内的变量, 该变量的作用范围仅限于其所在函数体的内部. 如果在该函数体外部引用这个变量, 系统将会认为引用的是另外一个变量.
+
+2. 全局变量: 全局变量可以在程序的任务地方被修改. 声明全局变量可以在变量前加上关键字 global.
+
+
+### 静态变量
+变量可以有存活的周期(生命周期). 变量的生命周期指的是变量可被使用的一个时间段, 在这个时间段内变量是有效的; 而一旦超出这个时间段变量将会失效.
+
+PHP变量的生命周期规定如:  
+1. 局部变量的生命周期为其所在函数被调用的整个过程. 当局部变量所在的函数结束时, 局部变量的生命周期也随之结束;
+2. 全局变量的生命周期为其所在php脚本文件被调用的整个过程. 当全局变量所在的脚本结束调用时, 全局变量的生命周期结束.
+3. 某个自定义函数结束后, 我们希望该函数内的变量依然存在, 就需要将这个变量声明为静态变量. 语法为在函数体内的变量前添加static关键字.
+
+```php
+<?php
+$a = 'hello';
+function test_static() {
+    static $a = 0;
+    echo $a."\n";
+    ++$a;
+}
+
+test_static();  // 0
+test_static();  // 1
+test_static();  // 2
+echo $a."\n";   // hello
+test_static();  // 3
+?>
+```
+
+
+### 可变变量
+如:
+
+    $a = 'hello';
+    $hello = 'aa';
+    echo $$a;
+
 
 ###PHP 之外的变量 
 
 
 
 ##常量
+定义常量的语法:  
+> bool define ( string $name, mixed $value [, bool case_$insensitive] )
 
 ###魔术常量
+常见魔术常量:  
+
+```
+__FILE__
+__LINE__
+__FUNCTION__
+__CLASS__
+PHP_VERSION
+PHP_OS
+```
+
 
 
 
@@ -222,16 +278,46 @@ EOT;
 ###位运算符
 ###比较运算符
 ###错误控制运算符
-###执行运算符
+
 ###递增／递减运算符
 ###逻辑运算符
 ###字符串运算符
 ###数组运算符
 ###类型运算符
+类型运算符instanceof可以用来判断指定对象是否来自指定的类:
+
+```php
+<?php
+class A{}
+$a = new A();
+var_dump($a instanceof A);
+?>
+```
+
+
+###执行运算符
+执行运算符 `命令` 内的字符串会被当做DOS命令或shell命令来执行,例如:
+
+```php
+$a = `ls`;
+echo $a;
+```
+
+
+### 判断运算符
+格式: 表达式1 ? 表达式2 : 表达式3; 
+
 
 
 
 ##流程控制 
+
+php中的流程控制语句可以分为如下几类:
+
+1. 条件语句: if/else/elseif/switch
+2. 循环语句: foreach/while/do while/for
+3. 跳转语句: braak/continue/return
+
 
 •简介  
 •if  
@@ -242,8 +328,8 @@ EOT;
 •do-while  
 •for  
 •foreach  
-•break  
-•continue  
+•break: 中断循环执行的语句;  
+•continue: 跳过本次循环中后面的代码并进入下一次循环;  
 •switch  
 •declare  
 •return  
@@ -252,26 +338,6 @@ EOT;
 •require_once  
 •include_once  
 •goto  
-
-###简介
-###if
-###else
-###elseif/else if
-###流程控制的替代语法
-###while
-###do-while
-###for
-###foreach
-###break
-###continue
-###switch
-###declare
-###return
-###require
-###include
-###require_once
-###include_once
-###goto
 
 
 
@@ -291,6 +357,13 @@ EOT;
 ###可变函数  
 ###内部（内置）函数  
 ###匿名函数  
+
+
+
+
+
+
+
 
 
 
